@@ -12,10 +12,6 @@ WORKDIR /usr/src/app
 # 必要なファイルを COPY
 COPY app.py ./
 
-# proxy の設定を追加
-RUN export HTTP_PROXY=http://172.24.2.10:8080
-RUN export HTTPS_PROXY=http://172.24.2.10:8080
-
 # 必要なライブラリをインストール
 RUN pip install responder
 
