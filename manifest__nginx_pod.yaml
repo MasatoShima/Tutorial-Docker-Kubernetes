@@ -1,0 +1,17 @@
+# """
+# Name: sample_02_01
+# Description: sample manifest from chapter 7.1
+# Created by: Masato Shima
+# Created on: 2019/12/27
+# """
+
+apiVersion: v1
+kind: Pod
+metadata:
+    name: nginx
+spec:
+    containers:
+        - name: nginx
+          image: nginx:latest
+
+# End
