@@ -44,9 +44,9 @@ def hello_world(req, res):
 def health(req, res):
 	elapsed_time = datetime.datetime.today() - START_TIME
 
-	# 擬似的に起動から 20秒間を起動処理中とする
-	# 起動から 20秒以内は 500応答を返す
-	# 起動から 20秒以降は 200応答を返す
+	# 擬似的に Pod の異常状態を起こす
+	# 起動から 40秒以内は 200応答を返す
+	# 起動から 40秒以降は 500応答を返す
 	if elapsed_time.seconds <= 40:
 		res.status_code = api.status_codes.HTTP_200
 	else:
@@ -63,6 +63,7 @@ def health(req, res):
 def ready(req, res):
 	elapsed_time = datetime.datetime.today() - START_TIME
 
+	# 擬似的に起動から 20秒間を起動処理中とする
 	# 起動から 20秒以内は 500応答を返す
 	# 起動から 20秒以降は 200応答を返す
 	if elapsed_time.seconds <= 20:
