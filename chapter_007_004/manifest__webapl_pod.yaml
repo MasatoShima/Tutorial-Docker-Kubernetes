@@ -12,7 +12,7 @@ metadata:
 spec:
     containers:
         -   name: webapl
-            image: masato0921/chapter_007_004:latest
+            image: masato0921/tutorial-docker-kubernetes:chapter_007_004
             livenessProbe:
                 httpGet:
                     port: 8000
