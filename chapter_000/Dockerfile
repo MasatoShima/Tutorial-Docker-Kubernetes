@@ -15,6 +15,7 @@ COPY app.py ./
 # 必要なライブラリをインストール
 RUN pip install responder
 
+# application の起動
 CMD ["python", "./app.py"]
 
 # End
