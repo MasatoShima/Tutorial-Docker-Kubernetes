@@ -1,0 +1,37 @@
+# """
+# Name: manifest__webserver.yaml
+# Description: sample manifest from chapter 7.6
+# Created by: Masato Shima
+# Created on: 2020/01/03
+# """
+
+apiVersion: v1
+kind: Pod
+metadata:
+    name: webserver
+spec:
+    containers:
+        # main container
+        -   name: nginx
+            image: nginx
+            volumeMounts:
+                -   mountPath: /usr/share/nginx/html
+                    name: contents-vol
+                    readOnly: true
+
+        # side car container
+        -   name: cloner
+            image: masato0921/tutorial-docker-kubernetes:chapter_007_006
+            env:
+                -   name: CONTENTS_SOURCE_URL
+                    value: https://github.com/MasatoShima/Training-FirstMyWebPage.git
+            volumeMounts:
+                -   mountPath: /data
+                    name: contents-vol
+
+    # share volume
+    volumes:
+        -   name: contents-vol
+            emptyDir: {}
+
+# End
