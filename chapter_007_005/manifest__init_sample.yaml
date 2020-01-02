@@ -33,7 +33,7 @@ spec:
                 - /bin/sh
             args:
                 - -c
-                - midir /mnt/html;
+                - mkdir /mnt/html;
                 - chown 33:33 /mnt/html
             volumeMounts:
                 -   mountPath: /mnt
