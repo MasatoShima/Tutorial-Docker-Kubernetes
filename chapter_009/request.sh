@@ -1,6 +1,6 @@
 # """
 # Name: request.sh
-# Description: sample manifest from chapter 9.6
+# Description: sample shell from chapter 9.6
 # Created by: Masato Shima
 # Created on: 2020/01/05
 # """
