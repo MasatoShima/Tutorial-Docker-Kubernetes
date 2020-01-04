@@ -1,7 +1,7 @@
 #! /bin/bash
 # """
 # Name: contents_cloner.sh
-# Description: sample manifest from chapter 7.6
+# Description: sample shell from chapter 7.6
 # Created by: Masato Shima
 # Created on: 2020/01/03
 # """
