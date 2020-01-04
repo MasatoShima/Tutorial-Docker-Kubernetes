@@ -11,6 +11,6 @@ metadata:
   name: apl-on-baremetal
 spec:
   type: ExternalName
-  externalName: 18.179.21.12
+  externalName: localhost
 
 # End
