@@ -15,6 +15,7 @@ spec:
     ports:
         -   port: 80
             protocol: TCP
-    sessionAffinity: ClientIP
+    # 以下のコメントアウトを外すことで sessionAffinity を有効化できる
+    # sessionAffinity: ClientIP
 
 # End
