@@ -1,0 +1,21 @@
+# """
+# Name: manifest__service_loadbalancer.yaml
+# Description: sample manifest from chapter 9.10
+# Created by: Masato Shima
+# Created on: 2020/01/05
+# """
+
+apiVersion: v1
+kind: Service
+metadata:
+    name: web-service-lb
+spec:
+    selector:
+        app: web
+    ports:
+        -   port: 80
+            protocol: TCP
+            name: webserver
+    type: LoadBalancer
+
+# End
