@@ -1,0 +1,26 @@
+# """
+# Name: manifest__deployment.yaml
+# Description: sample manifest from chapter 9.6
+# Created by: Masato Shima
+# Created on: 2020/01/05
+# """
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: web-deploy
+spec:
+    replicas: 3
+    selector:
+        matchLabels:
+            app: web
+    template:
+        metadata:
+            labels:
+                app: web
+        spec:
+            containers:
+                -   name: nginx
+                    image: nginx:latest
+
+# End
