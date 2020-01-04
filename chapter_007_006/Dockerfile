@@ -1,6 +1,6 @@
 # """
 # Name: Dockerfile
-# Description: sample manifest from chapter 7.6
+# Description: sample DockerFile from chapter 7.6
 # Created by: Masato Shima
 # Created on: 2020/01/03
 # """
