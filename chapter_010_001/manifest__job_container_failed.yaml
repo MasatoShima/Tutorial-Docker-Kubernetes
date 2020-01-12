@@ -1,0 +1,25 @@
+# """
+# Name: manifest__job_container_failed.yaml
+# Description: sample manifest from chapter 10.4
+# Created by: Masato Shima
+# Created on: 2020/01/13
+# """
+
+apiVersion: batch/v1
+kind: Job
+metadata:
+    name: two-containers
+spec:
+    template:
+        spec:
+            containers:
+                -   name: busybox1
+                    image: busybox:1
+                    command: ["sh", "-c", "sleep 5", "exit 0"]
+                -   name: busybox2
+                    image: busybox:1
+                    command: ["sh", "-c", "sleep 5", "exit 1"]
+            restartPolicy: Never
+    backoffLimit: 2
+
+# End
