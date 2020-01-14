@@ -1,0 +1,26 @@
+# """
+# Name: manifest__job_prime_numpy.yaml
+# Description: sample manifest from chapter 10.5
+# Created by: Masato Shima
+# Created on: 2020/01/15
+# """
+
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: prime_numpy
+spec:
+  template:
+    spec:
+      containers:
+        - name: prime_numpy
+          image: masato0921/tutorial-docker-kubernetes:chapter_010_005
+          env:
+            - name: A_START_NUM
+              value: "2"
+            - name: A_SIZE_NUM
+              value: "10**5"
+     restartPolicy: Never
+  backoffLimit: 4
+
+# End
