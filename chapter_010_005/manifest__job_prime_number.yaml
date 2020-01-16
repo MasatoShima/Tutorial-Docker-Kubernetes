@@ -8,12 +8,12 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: prime-numpy
+  name: prime-number
 spec:
   template:
     spec:
       containers:
-        - name: prime-numpy
+        - name: prime-number
           image: masato0921/tutorial-docker-kubernetes:chapter_010_005
           env:
             - name: A_START_NUM
