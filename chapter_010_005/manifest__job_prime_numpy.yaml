@@ -20,7 +20,7 @@ spec:
               value: "2"
             - name: A_SIZE_NUM
               value: "10**5"
-     restartPolicy: Never
+      restartPolicy: Never
   backoffLimit: 4
 
 # End
