@@ -11,6 +11,6 @@ COPY ./prime_number.py ./.
 
 RUN pip install numpy
 
-CMD ["python", "./prime_numpy.py"]
+CMD ["python", "./prime_number.py"]
 
 # End
