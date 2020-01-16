@@ -13,7 +13,7 @@ spec:
   template:
     spec:
       containers:
-        - name: prime_numpy
+        - name: prime-numpy
           image: masato0921/tutorial-docker-kubernetes:chapter_010_005
           env:
             - name: A_START_NUM
