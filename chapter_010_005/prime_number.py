@@ -21,8 +21,8 @@ np.set_printoptions(threshold=10)
 # **************************************************
 def main() -> None:
 	# 環境変数より素数の計算範囲を受け取る
-	n_start = int(os.environ["A_START_NUM"])
-	n_size = int(os.environ["A_SIZE_NUM"])
+	n_start = eval(os.environ["A_START_NUM"])
+	n_size = eval(os.environ["A_SIZE_NUM"])
 	n_end = n_start + n_size
 	array = np.arange(n_start, n_end)
 
