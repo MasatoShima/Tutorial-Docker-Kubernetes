@@ -1,0 +1,44 @@
+# """
+# Name: manifest__task_queue.yaml
+# Description: sample manifest from chapter 10.6
+# Created by: Masato Shima
+# Created on: 2020/01/19
+# """
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: task-queue
+spec:
+  selector:
+    matchLabels:
+      app: task-queue
+  replicas: 1
+  template:
+    metadata:
+      labels:
+          app: task-queue
+    spec:
+      containers:
+        - name: rabbitmq
+          image: rabbitmq
+          ports:
+            - containerPort: 5672
+          resources:
+            limits:
+              cpu: 100m
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: task-queue
+spec:
+  type: NodePort
+  ports:
+    - port: 5672
+      nodePort: 31672
+  selector:
+    app: task-queue
+
+# End
