@@ -8,7 +8,7 @@
 FROM ubuntu:16.04
 
 RUN apt-get update && \
-    apt-get install -y curl ca-certificates amqp-tools python3.6 python3-pip
+    apt-get install -y curl ca-certificates amqp-tools python3 python3-pip
 
 RUN pip3 install numpy
 
