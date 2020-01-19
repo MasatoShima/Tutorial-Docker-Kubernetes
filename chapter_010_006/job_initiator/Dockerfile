@@ -7,7 +7,7 @@
 
 FROM ubuntu:16.04
 
-RUN apt-get update &&
+RUN apt-get update && \
     apt-get install -y iputils-ping dnsutils curl apt-transport-https
 
 # install kubectl
@@ -16,7 +16,7 @@ RUN touch /etc/apt/sources.list.d/kubernetes.list
 RUN echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list
 RUN apt-get update && apt-get install -y kubectl
 
-# install pyhon python-packages
+# install pyhon, python-packages
 RUN apt-get install -y python3 python3-pip
 RUN pip install pika kubernetes
 
