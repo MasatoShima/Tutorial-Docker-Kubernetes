@@ -9,6 +9,7 @@ verify_ssl = true
 responder = "*"
 numpy = "*"
 kubernetes = "*"
+pika = "*"
 
 [requires]
 python_version = "3.7"
