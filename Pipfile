@@ -6,6 +6,10 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
+responder = "*"
+numpy = "*"
+kubernetes = "*"
+pika = "*"
 
 [requires]
 python_version = "3.6"
