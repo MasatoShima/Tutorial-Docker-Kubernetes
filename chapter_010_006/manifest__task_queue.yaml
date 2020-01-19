@@ -5,7 +5,7 @@
 # Created on: 2020/01/19
 # """
 
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: task-queue
