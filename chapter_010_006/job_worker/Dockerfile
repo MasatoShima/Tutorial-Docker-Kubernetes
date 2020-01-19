@@ -8,9 +8,9 @@
 FROM ubuntu:16.04
 
 RUN apt-get update && \
-    apt-get install -y curl ca-certificates amqp-tools python python-pip
+    apt-get install -y curl ca-certificates amqp-tools python3.6 python3-pip
 
-RUN pip install numpy
+RUN pip3 install numpy
 
 COPY ./prime_number.py ./.
 
