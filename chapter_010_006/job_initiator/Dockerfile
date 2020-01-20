@@ -18,6 +18,6 @@ RUN apt-get update && apt-get install -y kubectl
 
 # install pyhon, python-packages
 RUN apt-get install -y python3 python3-pip
-RUN pip install pika kubernetes
+RUN pip3 install pika kubernetes
 
 # End
