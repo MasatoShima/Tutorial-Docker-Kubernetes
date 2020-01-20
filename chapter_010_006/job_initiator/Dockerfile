@@ -17,7 +17,7 @@ RUN echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/ap
 RUN apt-get update && apt-get install -y kubectl
 
 # install pyhon, python-packages
-RUN apt-get install -y python3 python3-pip
+RUN apt-get install -y "python3.6" "python3-pip"
 RUN pip3 install pika kubernetes
 
 # End
