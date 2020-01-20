@@ -5,7 +5,7 @@
 # Created on: 2020/01/20
 # """
 
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 
 RUN apt-get update && \
     apt-get install -y iputils-ping dnsutils curl apt-transport-https
@@ -17,8 +17,7 @@ RUN echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/ap
 RUN apt-get update && apt-get install -y kubectl
 
 # install pyhon, python-packages
-RUN apt-get install -y software-properties-common
-RUN apt-get install -y python3.8 python3-pip
+RUN apt-get install -y python3 python3-pip
 RUN pip3 install pika kubernetes
 
 # End
