@@ -5,7 +5,7 @@
 # Created on: 2020/01/20
 # """
 
-FROM ubuntu:18.04
+FROM ubuntu:16.04
 
 RUN apt-get update && \
     apt-get install -y iputils-ping dnsutils curl apt-transport-https
