@@ -20,8 +20,8 @@ RUN apt-get update && apt-get install -y kubectl
 # RUN apt-get install -y python3 python3-pip
 # RUN pip3 install pika kubernetes
 
-RUN apt install build-essential
-RUN apt install libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev
+RUN apt install -y build-essential
+RUN apt install -y libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev
 
 RUN wget https://www.python.org/ftp/python/3.6.7/Python-3.6.7.tgz
 RUN tar -xvf Python-3.6.7.tgz
