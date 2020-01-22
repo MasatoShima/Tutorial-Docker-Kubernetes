@@ -8,7 +8,7 @@
 FROM ubuntu:18.04
 
 RUN apt-get update && \
-    apt-get install -y iputils-ping dnsutils curl apt-transport-https
+    apt-get install -y iputils-ping dnsutils curl apt-transport-https gnupg gnupg1 gnupg2
 
 # install kubectl
 RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
