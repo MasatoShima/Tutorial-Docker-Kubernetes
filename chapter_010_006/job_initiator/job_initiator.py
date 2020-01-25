@@ -67,6 +67,8 @@ def main():
 # **************************************************
 def create_queue() -> pika.BlockingConnection.channel:
 	# RabbitMQ へ接続
+	# queue_host は RabbitMQ が稼働する Pod の
+	# NodePort が公開する IP / Port を指定すること
 	queue_cred = pika.PlainCredentials("guest", "guest")
 	queue_host = "10.96.154.209"
 	queue_port = 5672
