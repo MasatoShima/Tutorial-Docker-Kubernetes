@@ -15,6 +15,6 @@ RUN pip3 install numpy
 
 COPY ./prime_number.py ./.
 
-CMD /usr/bin/amqp-tools --url=$BROKER_URL -q $QUOTE -c 1 /prime_number.py
+CMD /usr/bin/amqp-consume --url=$BROKER_URL -q $QUOTE -c 1 /prime_number.py
 
 # End
