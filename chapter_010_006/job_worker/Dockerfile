@@ -16,6 +16,6 @@ RUN pip3 install numpy
 COPY ./prime_number.py ./.
 RUN chmod 775 ./prime_number.py
 
-CMD /usr/bin/amqp-consume --url=$BROKER_URL -q $QUEUE -c 1 /prime_number.py
+CMD /usr/bin/amqp-consume --url=$BROKER_URL -q $QUEUE -c 1 python3 /prime_number.py
 
 # End
