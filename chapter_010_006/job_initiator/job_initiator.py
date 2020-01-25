@@ -68,8 +68,8 @@ def main():
 def create_queue() -> pika.BlockingConnection.channel:
 	# RabbitMQ へ接続
 	queue_cred = pika.PlainCredentials("guest", "guest")
-	queue_host = "192.168.99.100"
-	queue_port = 31672
+	queue_host = "10.96.154.209"
+	queue_port = 5672
 
 	queue_param = pika.ConnectionParameters(
 		host=queue_host,
