@@ -8,7 +8,7 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: CronJob
+  name: cron-job
 spec:
   jobTemplate:
     spec:
