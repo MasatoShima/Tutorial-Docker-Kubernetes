@@ -17,7 +17,7 @@ spec:
         - mountPath: /mnt
           name: pvc1
       command:
-        - /bin/bin/tail
+        - /bin/tail
         - -f
         - /dev/null
   volumes:
