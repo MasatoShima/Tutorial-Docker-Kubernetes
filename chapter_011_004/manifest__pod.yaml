@@ -16,7 +16,7 @@ spec:
       volumeMounts:
         - mountPath: /mnt
           name: pvc1
-      command: ["/bin/bin/tail", "-f", "/dev/null"]
+      command: ["/usr/bin/tail", "-f", "/dev/null"]
   volumes:
     - name: pvc1
       persistentVolumeClaim:
