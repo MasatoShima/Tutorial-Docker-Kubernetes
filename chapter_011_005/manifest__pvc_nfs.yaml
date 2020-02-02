@@ -1,0 +1,23 @@
+# """
+# Name: manifest__pvc_nfs.yaml
+# Description: sample manifest from chapter 11.5
+# Created by: Masato Shima
+# Created on: 2020/02/02
+# """
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nfs-1
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: ""
+  resources:
+    requests:
+      storage: "100Mi"
+  selector:
+    matchLabels:
+      name: pv-nfs-1
+
+# End

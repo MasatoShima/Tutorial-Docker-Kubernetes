@@ -1,0 +1,24 @@
+# """
+# Name: manifest__pv_nfs.yaml
+# Description: sample manifest from chapter 11.5
+# Created by: Masato Shima
+# Created on: 2020/02/02
+# """
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nfs-1
+  labels:
+    name: pv-nfs-1
+spec:
+  capacity:
+    storage: 100Mi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    # mount 先の IP アドレスを指定
+    server: 172.31.30.89
+    path: /share
+
+# End

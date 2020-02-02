@@ -1,0 +1,33 @@
+# """
+# Name: manifest__client_nfs.yaml
+# Description: sample manifest from chapter 11.5
+# Created by: Masato Shima
+# Created on: 2020/02/02
+# """
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nfs-client
+spec:
+  selector:
+    matchLabels:
+      app: ubuntu
+  replicas: 2
+  template:
+      metadata:
+        labels:
+          app: ubuntu
+      spec:
+        containers:
+          - name: ubuntu
+            image: ubuntu:16.04
+            volumeMounts:
+              - mountPath: /mnt
+                name: nfs
+        volumes:
+          - name: nfs
+            persistentVolumeClaim:
+              claimName: nfs-1
+
+# End
