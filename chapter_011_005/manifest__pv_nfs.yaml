@@ -19,6 +19,6 @@ spec:
   nfs:
     # mount 先の IP アドレスを指定
     server: 172.31.30.89
-    path: /share
+    path: /
 
 # End
