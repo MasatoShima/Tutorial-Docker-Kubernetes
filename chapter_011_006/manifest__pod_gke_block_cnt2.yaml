@@ -1,0 +1,41 @@
+# """
+# Name: manifest__pod_gke_block.yaml
+# Description: sample manifest from chapter 11.6
+# Created by: Masato Shima
+# Created on: 2020/02/19
+# """
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pod-gke
+  labels:
+    app: pod-gke
+spec:
+  selector:
+    matchLabels:
+      app: pod-gke
+  template:
+      metadata:
+        labels:
+          app: pod-gke
+      spec:
+        containers:
+          - name: ubuntu-1
+            image: ubuntu
+            volumeMounts:
+              - mountPath: /mnt
+                name: block
+            command: ["/usr/bin/tail", "-f", "/dev/null"]
+          - name: ubuntu-2
+            image: ubuntu
+            volumeMounts:
+              - mountPath: /mnt
+                name: block
+            command: ["/usr/bin/tail", "-f", "/dev/null"]
+        volumes:
+          - name: block
+            persistentVolumeClaim:
+              claimName: block-gke
+
+# End
