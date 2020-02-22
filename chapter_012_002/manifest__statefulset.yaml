@@ -30,6 +30,7 @@ spec:
     matchLabels:
       app: mysql-sts
   serviceName: mysql
+  replicas: 1
   template:
     metadata:
       labels:
