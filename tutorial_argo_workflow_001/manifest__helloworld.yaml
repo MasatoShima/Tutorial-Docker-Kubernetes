@@ -1,0 +1,25 @@
+# """
+# Name: manifest__helloworld.yaml
+# Created by: Masato Shima
+# Created on: 2020/03/01
+# Description: Argo Workflows: Documentation by Example. chapter.01 Hello World !
+# """
+
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+    generateName: hello-world-
+spec:
+    entrypoint: whalesay
+    templates:
+        - name: whalesay
+          container:
+              image: docker/whalesay
+              command: [cowsay]
+              args: ["hello world"]
+              resources:
+                  limits:
+                      memory: 32Mi
+                      cpu: 100m
+
+# End
