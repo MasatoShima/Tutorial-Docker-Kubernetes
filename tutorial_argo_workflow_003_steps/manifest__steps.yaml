@@ -1,0 +1,44 @@
+# """
+# Name: manifest__steps.yaml
+# Created by: Masato Shima
+# Created on: 2020/03/03
+# Description: Argo Workflows: Documentation by Example. chapter.03 Steps
+# """
+
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: steps-
+spec:
+  entrypoint: hello-hello-hello
+  templates:
+  - name: hello-hello-hello
+    steps:
+    - - name:  hello1
+        template: whalesay
+        arguments:
+          parameters:
+            - name:  message
+              value: "hello1"
+    - - name:  hello2a
+        template: whalesay
+        arguments:
+          parameters:
+            - name:  message
+              value: "hello2a"
+      - name:  hello2b
+        template: whalesay
+        arguments:
+          parameters:
+            - name:  message
+              value: "hello2b"
+  - name: whalesay
+    inputs:
+      parameters:
+      - name: message
+    container:
+      image: docker/whalesay
+      command: [cowsay]
+      args: ["{{inputs.parameters.message}}"]
+
+# End
