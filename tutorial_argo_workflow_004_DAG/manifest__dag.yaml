@@ -1,0 +1,45 @@
+# """
+# Name: manifest__dag.yaml
+# Created by: Masato Shima
+# Created on: 2020/03/13
+# Description: Argo Workflows: Documentation by Example. chapter.04 DAG
+# """
+
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: dag-diamond-
+spec:
+  entrypoint: diamond
+  templates:
+    - name: echo
+      inputs:
+        parameters:
+          - name: message
+      container:
+        image: alpine:3.7
+        command: [echo, "{{inputs.parameters.message}}"]
+    - name: diamond
+      dag:
+        tasks:
+        - name: A
+          template: echo
+          arguments:
+            parameters: [{name: message, value: A}]
+        - name: B
+          dependencies: [A]
+          template: echo
+          arguments:
+            parameters: [{name: message, value: B}]
+        - name: C
+          dependencies: [A]
+          template: echo
+          arguments:
+            parameters: [{name: message, value: C}]
+        - name: D
+          dependencies: [B, C]
+          template: echo
+          arguments:
+            parameters: [{name: message, value: D}]
+
+# End
