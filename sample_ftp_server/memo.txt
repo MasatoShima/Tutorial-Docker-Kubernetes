@@ -1,0 +1,4 @@
+docker run -d \
+-p 20:20 -p 21:21 -p 21100-21110:21100-21110 \
+-v /Users/Masato/tmp/:/home/vsftpd \
+--name sample-ftp-server --restart=always sample/ftp-server:latest
