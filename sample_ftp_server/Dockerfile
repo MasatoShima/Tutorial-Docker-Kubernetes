@@ -5,19 +5,18 @@
 # Created on: 2020/03/18
 # """
 
-FROM fauria/vsftpd:latest
+FROM centos:centos7.7.1908
+
+# Install vsftpd
+RUN yum install -y vsftpd
 
 # Create user for ftp
-RUN useradd guest \
- && echo guest:guest | chpasswd \
- && mkdir /home/vsftpd/guest/ \
- && chown guest:guest /home/vsftpd/guest/
+RUN mkdir -p /home/ftpusers/guest/ \
+ && useradd guest --home-dir /home/ftpusers/guest/ \
+ && echo guest:guest | chpasswd
 
 # Copy config file
-ADD /config/ /etc/vsftpd/
-
-# Restart vsftpd
-# RUN systemctl restart vsftpd
+#ADD /config/ /etc/vsftpd/
 
 # ENTRYPOINT
 ENTRYPOINT ["tail", "-f", "/dev/null"]
