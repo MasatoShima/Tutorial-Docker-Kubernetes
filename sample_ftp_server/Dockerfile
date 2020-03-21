@@ -1,6 +1,6 @@
 # """
 # Name: Dockerfile
-# Description:
+# Description: Dockerfile
 # Created by: Masato Shima
 # Created on: 2020/03/18
 # """
@@ -11,14 +11,20 @@ FROM centos:centos7.7.1908
 RUN yum install -y vsftpd
 
 # Create user for ftp
-RUN mkdir -p /home/ftpusers/guest/ \
- && useradd guest --home-dir /home/ftpusers/guest/ \
- && echo guest:guest | chpasswd
+RUN useradd ftpuser \
+ && echo ftpuser:ftpuser | chpasswd
 
 # Copy config file
-#ADD /config/ /etc/vsftpd/
+ADD config /etc/vsftpd/
+
+# Copy shell
+COPY run.sh /opt/
+RUN chmod 775 /opt/run.sh
+
+EXPOSE 20:21
+EXPOSE 21100:21110
 
 # ENTRYPOINT
-ENTRYPOINT ["tail", "-f", "/dev/null"]
+ENTRYPOINT ["/opt/run.sh"]
 
 # End
