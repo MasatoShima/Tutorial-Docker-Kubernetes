@@ -1,0 +1,41 @@
+# """
+# Name: manifest.yaml
+# Description: manifest.yaml
+# Created by: Masato Shima
+# Created on: 2020/04/05
+# """
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ftp-service
+  labels:
+    app: ftp-service
+spec:
+  selector:
+    matchLabels:
+      app: ftp-service
+  template:
+    metadata:
+      labels:
+        app: ftp-service
+    spec:
+      containers:
+        - name: ftp-service
+          image: masato0921/tutorial-docker-kubernetes:ftp-service
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: ftp-service
+spec:
+  selector:
+      app: ftp-service
+  ports:
+    - port: 21
+      protocol: TCP
+  type: NodePort
+
+# End
