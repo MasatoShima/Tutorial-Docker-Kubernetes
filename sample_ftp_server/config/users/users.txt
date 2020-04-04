@@ -1,0 +1,1 @@
+ftpuser:ftpuser:1000:1000::/home/ftpuser/:/bin/bash
