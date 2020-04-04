@@ -11,11 +11,11 @@ FROM centos:centos7.7.1908
 RUN yum install -y vsftpd
 
 # Create user for ftp
-RUN useradd ftpuser \
- && echo ftpuser:ftpuser | chpasswd
+COPY config/users/users.txt /opt/
+RUN newusers /opt/users.txt
 
 # Copy config file
-ADD config /etc/vsftpd/
+ADD config/vsftpd/ /etc/vsftpd/
 
 # Copy shell
 COPY run.sh /opt/
