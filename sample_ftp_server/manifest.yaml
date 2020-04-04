@@ -23,6 +23,8 @@ spec:
       containers:
         - name: ftp-service
           image: masato0921/tutorial-docker-kubernetes:ftp-service
+          ports:
+            - containerPort: 21
 
 ---
 
