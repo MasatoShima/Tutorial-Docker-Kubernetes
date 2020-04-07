@@ -39,6 +39,6 @@ spec:
     - port: 21
       protocol: TCP
       nodePort: 30000
-  type: NodePort
+  type: LoadBalancer
 
 # End
