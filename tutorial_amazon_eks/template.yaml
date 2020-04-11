@@ -1,0 +1,277 @@
+# """
+# Name: template.yaml
+# Created by: Masato Shima
+# Created on: 2020/04/11
+# Description: template.yaml
+# """
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Amazon EKS Service Role"
+
+# **************************************************
+# Resources
+# **************************************************
+Resources:
+
+  # **************************************************
+  # IAM
+  # **************************************************
+  RoleForEks:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: Tutorial-Docker-Kubernetes-EKS
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - eks.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonEKSServicePolicy
+        - arn:aws:iam::aws:policy/AmazonEKSClusterPolicy
+
+  RoleForEksWorker:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: Tutorial-Docker-Kubernetes-EKS-Worker
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ec2.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly
+        - arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy
+        - arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy
+
+  # **************************************************
+  # ----- VPC
+  # **************************************************
+  # VPC and Subnet
+  Vpc:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.1.0.0/16
+      Tags:
+        - Key: Name
+          Value: Tutorial-Docker-Kubernetes-VPC
+        - Key: kubernetes.io/cluster/Tutorial-Docker-Kubernetes
+          Value: shared
+
+  SubnetPubA:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: ap-northeast-1a
+      CidrBlock: 10.1.1.0/24
+      VpcId: !Ref Vpc
+      Tags:
+        - Key: Name
+          Value: Tutorial-Docker-Kubernetes-Pub_1a
+        - Key: kubernetes.io/cluster/Tutorial-Docker-Kubernetes
+          Value: shared
+        - Key: kubernetes.io/role/elb
+          Value: 1
+
+  SubnetPubC:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: ap-northeast-1c
+      CidrBlock: 10.1.2.0/24
+      VpcId: !Ref Vpc
+      Tags:
+        - Key: Name
+          Value: Tutorial-Docker-Kubernetes-Pub_1c
+        - Key: kubernetes.io/cluster/Tutorial-Docker-Kubernetes
+          Value: shared
+        - Key: kubernetes.io/role/elb
+          Value: 1
+
+  SubnetPriA:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: ap-northeast-1a
+      CidrBlock: 10.1.3.0/24
+      VpcId: !Ref Vpc
+      Tags:
+        - Key: Name
+          Value: Tutorial-Docker-Kubernetes-Pri_1a
+        - Key: kubernetes.io/cluster/Tutorial-Docker-Kubernetes
+          Value: shared
+        - Key: kubernetes.io/role/internal-elb
+          Value: 1
+
+  SubnetPriC:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: ap-northeast-1c
+      CidrBlock: 10.1.4.0/24
+      VpcId: !Ref Vpc
+      Tags:
+        - Key: Name
+          Value: Tutorial-Docker-Kubernetes-Pri_1c
+        - Key: kubernetes.io/cluster/Tutorial-Docker-Kubernetes
+          Value: shared
+        - Key: kubernetes.io/role/internal-elb
+          Value: 1
+
+  InternetGateway:
+    Type: "AWS::EC2::InternetGateway"
+
+  VPCGatewayAttachment:
+    Type: "AWS::EC2::VPCGatewayAttachment"
+    Properties:
+      InternetGatewayId: !Ref InternetGateway
+      VpcId: !Ref Vpc
+
+  PublicRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref Vpc
+      Tags:
+      - Key: Name
+        Value: Public Subnets
+      - Key: Network
+        Value: Public
+
+  PrivateRouteTableA:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref Vpc
+      Tags:
+      - Key: Name
+        Value: Private Subnet AZ1
+      - Key: Network
+        Value: Private01
+
+  PrivateRouteTableC:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref Vpc
+      Tags:
+      - Key: Name
+        Value: Private Subnet AZ2
+      - Key: Network
+        Value: Private02
+
+  PublicRoute:
+    Type: AWS::EC2::Route
+    DependsOn: VPCGatewayAttachment
+    Properties:
+      RouteTableId: !Ref PublicRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref InternetGateway
+
+  PrivateRouteA:
+    Type: AWS::EC2::Route
+    DependsOn:
+    - VPCGatewayAttachment
+    - NatGatewayA
+    Properties:
+      RouteTableId: !Ref PrivateRouteTableA
+      DestinationCidrBlock: 0.0.0.0/0
+      NatGatewayId: !Ref NatGatewayA
+
+  PrivateRouteC:
+    Type: AWS::EC2::Route
+    DependsOn:
+    - VPCGatewayAttachment
+    - NatGatewayC
+    Properties:
+      RouteTableId: !Ref PrivateRouteTableC
+      DestinationCidrBlock: 0.0.0.0/0
+      NatGatewayId: !Ref NatGatewayC
+
+  NatGatewayA:
+    Type: AWS::EC2::NatGateway
+    DependsOn:
+    - NatGatewayEipA
+    - SubnetPubA
+    - VPCGatewayAttachment
+    Properties:
+      AllocationId: !GetAtt "NatGatewayEipA.AllocationId"
+      SubnetId: !Ref SubnetPubA
+      Tags:
+      - Key: Name
+        Value: !Sub "${AWS::StackName}-NatGatewayAzA"
+
+  NatGatewayC:
+    Type: AWS::EC2::NatGateway
+    DependsOn:
+    - NatGatewayEipC
+    - SubnetPubC
+    - VPCGatewayAttachment
+    Properties:
+      AllocationId: !GetAtt "NatGatewayEipC.AllocationId"
+      SubnetId: !Ref SubnetPubC
+      Tags:
+      - Key: Name
+        Value: !Sub "${AWS::StackName}-NatGatewayAzC"
+
+  NatGatewayEipA:
+    Type: "AWS::EC2::EIP"
+    DependsOn:
+    - VPCGatewayAttachment
+    Properties:
+      Domain: vpc
+
+  NatGatewayEipC:
+    Type: "AWS::EC2::EIP"
+    DependsOn:
+    - VPCGatewayAttachment
+    Properties:
+      Domain: vpc
+
+  RouteTableAssociationSubPubA:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref SubnetPubA
+      RouteTableId: !Ref PublicRouteTable
+
+  RouteTableAssociationSubPubC:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref SubnetPubC
+      RouteTableId: !Ref PublicRouteTable
+
+  RouteTableAssociationSubPriA:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref SubnetPriA
+      RouteTableId: !Ref PrivateRouteTableA
+
+  RouteTableAssociationSubPriC:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref SubnetPriC
+      RouteTableId: !Ref PrivateRouteTableC
+
+  SecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: Tutorial-Docker-Kubernetes-EKS-SecGroup
+      GroupDescription: Cluster communication with worker nodes
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 20
+          ToPort: 21
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 21100
+          ToPort: 21101
+          CidrIp: 0.0.0.0/0
+      VpcId: !Ref Vpc
+
+Outputs:
+  RoleArn:
+    Description: The role that Amazon EKS will use to create AWS resources for Kubernetes clusters
+    Value: !GetAtt RoleForEks.Arn
+    Export:
+      Name: !Sub "${AWS::StackName}-RoleArn"
+
+# End
