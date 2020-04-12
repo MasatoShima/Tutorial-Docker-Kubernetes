@@ -5,7 +5,7 @@
 # Description: template.yaml
 # """
 AWSTemplateFormatVersion: "2010-09-09"
-Description: "Amazon EKS Service Role"
+Description: "Create Amazon EKS Environment"
 
 # **************************************************
 # Resources
@@ -18,7 +18,7 @@ Resources:
   RoleForEks:
     Type: AWS::IAM::Role
     Properties:
-      RoleName: Tutorial-Docker-Kubernetes-EKS
+      RoleName: Tutorial-Docker-Kubernetes-EKS-Master
       AssumeRolePolicyDocument:
         Version: "2012-10-17"
         Statement:
