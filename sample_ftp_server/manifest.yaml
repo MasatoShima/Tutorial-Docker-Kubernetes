@@ -15,6 +15,7 @@ spec:
   selector:
     matchLabels:
       app: ftp-service
+  replicas: 1
   template:
     metadata:
       labels:
@@ -32,7 +33,6 @@ metadata:
   name: ftp-service
   annotations:
     service.beta.kubernetes.io/aws-load-balancer-type: nlb
-    service.beta.kubernetes.io/aws-load-balancer-internal: 0.0.0.0/0
 spec:
   selector:
       app: ftp-service

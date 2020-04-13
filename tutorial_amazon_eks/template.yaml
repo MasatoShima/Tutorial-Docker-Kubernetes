@@ -219,6 +219,9 @@ Resources:
     - VPCGatewayAttachment
     Properties:
       Domain: vpc
+      Tags:
+        - Key: Name
+          Value: !Sub "${AWS::StackName}-EIP-AzA"
 
   NatGatewayEipC:
     Type: "AWS::EC2::EIP"
@@ -226,6 +229,9 @@ Resources:
     - VPCGatewayAttachment
     Properties:
       Domain: vpc
+      Tags:
+        - Key: Name
+          Value: !Sub "${AWS::StackName}-EIP-AzC"
 
   RouteTableAssociationSubPubA:
     Type: AWS::EC2::SubnetRouteTableAssociation
