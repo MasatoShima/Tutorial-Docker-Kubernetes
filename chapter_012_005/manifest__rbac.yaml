@@ -1,0 +1,36 @@
+# """
+# Name: manifest__rbac.yaml
+# Description: sample DockerFile from chapter 12.5
+# Created by: Masato Shima
+# Created on: 2020/04/23
+# """
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: nodes
+rules:
+  - apiGroups:
+      -
+    resources:
+      - nodes
+    verbs:
+      - list
+      - delete
+
+---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: nodes
+subjects:
+  - kind: ServiceAccount
+    name: Masato
+    namespace: Tutorial-Docker-Kubernetes-chapter12-05
+roleRef:
+  apiGroup: rbac.authorization.k8s.io/v1
+  kind: ClusterRole
+  name: nodes
+
+# End
