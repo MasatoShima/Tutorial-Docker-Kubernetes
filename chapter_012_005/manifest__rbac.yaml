@@ -27,7 +27,7 @@ metadata:
 subjects:
   - kind: ServiceAccount
     name: Masato
-    namespace: Tutorial-Docker-Kubernetes-chapter12-05
+    namespace: Tutorial-Docker-Kubernetes-chapter-12-05
 roleRef:
   apiGroup: rbac.authorization.k8s.io/v1
   kind: ClusterRole
