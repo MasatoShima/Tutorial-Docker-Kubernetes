@@ -64,6 +64,7 @@ Resources:
               - "route53:ListResourceRecordSets"
             "Resource": "*"
       Roles:
+        - !Ref RoleForEks
         - !Ref RoleForEksWorker
 
   # **************************************************
