@@ -50,6 +50,19 @@ spec:
     - port: 21101
       protocol: TCP
       name: ftp-21101
+    - port: 21102
+      protocol: TCP
+      name: ftp-21102
+    - port: 21103
+      protocol: TCP
+      name: ftp-21103
+    - port: 21104
+      protocol: TCP
+      name: ftp-21104
+    - port: 21105
+      protocol: TCP
+      name: ftp-21105
+
   type: LoadBalancer
 
 ---

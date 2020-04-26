@@ -22,7 +22,7 @@ COPY run.sh /opt/
 RUN chmod 775 /opt/run.sh
 
 EXPOSE 20:21
-EXPOSE 21100:21101
+EXPOSE 21100:21105
 
 # ENTRYPOINT
 ENTRYPOINT ["/opt/run.sh"]
