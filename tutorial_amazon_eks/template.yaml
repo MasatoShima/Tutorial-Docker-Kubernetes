@@ -69,6 +69,7 @@ Resources:
     Properties:
       AvailabilityZone: ap-northeast-1a
       CidrBlock: 10.1.1.0/24
+      MapPublicIpOnLaunch: true
       VpcId: !Ref Vpc
       Tags:
         - Key: Name
@@ -83,6 +84,7 @@ Resources:
     Properties:
       AvailabilityZone: ap-northeast-1c
       CidrBlock: 10.1.2.0/24
+      MapPublicIpOnLaunch: true
       VpcId: !Ref Vpc
       Tags:
         - Key: Name
@@ -213,7 +215,7 @@ Resources:
       - Key: Name
         Value: !Sub "${AWS::StackName}-NatGatewayAzC"
 
-  NatGatewayEipA:
+  EipA:
     Type: "AWS::EC2::EIP"
     DependsOn:
     - VPCGatewayAttachment
@@ -223,7 +225,7 @@ Resources:
         - Key: Name
           Value: !Sub "${AWS::StackName}-EIP-AzA"
 
-  NatGatewayEipC:
+  EipC:
     Type: "AWS::EC2::EIP"
     DependsOn:
     - VPCGatewayAttachment
