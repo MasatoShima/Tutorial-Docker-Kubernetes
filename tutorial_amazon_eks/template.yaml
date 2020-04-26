@@ -192,11 +192,11 @@ Resources:
   NatGatewayA:
     Type: AWS::EC2::NatGateway
     DependsOn:
-    - NatGatewayEipA
+    - EipA
     - SubnetPubA
     - VPCGatewayAttachment
     Properties:
-      AllocationId: !GetAtt "NatGatewayEipA.AllocationId"
+      AllocationId: !GetAtt "EipA.AllocationId"
       SubnetId: !Ref SubnetPubA
       Tags:
       - Key: Name
@@ -205,11 +205,11 @@ Resources:
   NatGatewayC:
     Type: AWS::EC2::NatGateway
     DependsOn:
-    - NatGatewayEipC
+    - EipC
     - SubnetPubC
     - VPCGatewayAttachment
     Properties:
-      AllocationId: !GetAtt "NatGatewayEipC.AllocationId"
+      AllocationId: !GetAtt "EipC.AllocationId"
       SubnetId: !Ref SubnetPubC
       Tags:
       - Key: Name
