@@ -50,6 +50,22 @@ Resources:
         - arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy
         - arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy
 
+  PolicyForEksWorker:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: Tutorial-Docker-Kubernetes-EKS-Worker
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - "Effect": "Allow"
+            "Action":
+              - "route53:ChangeResourceRecordSets"
+              - "route53:ListHostedZones"
+              - "route53:ListResourceRecordSets"
+            "Resource": "*"
+      Roles:
+        - !Ref RoleForEksWorker
+
   # **************************************************
   # ----- VPC
   # **************************************************
