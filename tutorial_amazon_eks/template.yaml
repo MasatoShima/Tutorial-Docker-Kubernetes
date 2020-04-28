@@ -290,6 +290,10 @@ Resources:
           FromPort: 21100
           ToPort: 21105
           CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 30000
+          ToPort: 32767
+          CidrIp: 0.0.0.0/0
       VpcId: !Ref Vpc
 
 Outputs:
