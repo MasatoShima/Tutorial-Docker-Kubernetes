@@ -68,6 +68,14 @@ Resources:
         - !Ref RoleForEksWorker
 
   # **************************************************
+  # ----- S3
+  # **************************************************
+  BucketSample:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: tutorial-docker-kubernetes-logs
+
+  # **************************************************
   # ----- VPC
   # **************************************************
   # VPC and Subnet
@@ -289,10 +297,6 @@ Resources:
         - IpProtocol: tcp
           FromPort: 21100
           ToPort: 21105
-          CidrIp: 0.0.0.0/0
-        - IpProtocol: tcp
-          FromPort: 30000
-          ToPort: 32767
           CidrIp: 0.0.0.0/0
       VpcId: !Ref Vpc
 
