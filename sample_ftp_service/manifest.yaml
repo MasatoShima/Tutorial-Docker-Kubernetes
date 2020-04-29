@@ -24,6 +24,15 @@ spec:
       containers:
         - name: ftp-service
           image: masato0921/tutorial-docker-kubernetes:ftp-service
+          ports:
+            - containerPort: 20
+            - containerPort: 21
+            - containerPort: 21100
+            - containerPort: 21101
+            - containerPort: 21102
+            - containerPort: 21103
+            - containerPort: 21104
+            - containerPort: 21105
 
 ---
 
@@ -33,37 +42,48 @@ metadata:
   name: ftp-service
   annotations:
     service.beta.kubernetes.io/aws-load-balancer-type: nlb
+    service.beta.kubernetes.io/aws-load-balancer-access-log-enabled: "true"
+    service.beta.kubernetes.io/aws-load-balancer-access-log-emit-interval: "5"
+    service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-name: "tutorial-docker-kubernetes-logs"
+    service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-prefix: "tutorial-docker-kubernetes-logs/lb"
     external-dns.alpha.kubernetes.io/hostname: tes.masato-shima.com
 spec:
+  type: LoadBalancer
   selector:
     app: ftp-service
   ports:
-    - port: 20
+    - name: ftp-20
+      port: 20
       protocol: TCP
-      name: ftp-20
-    - port: 21
+      targetPort: 20
+    - name: ftp-21
+      port: 21
       protocol: TCP
-      name: ftp-21
-    - port: 21100
+      targetPort: 21
+    - name: ftp-21100
+      port: 21100
       protocol: TCP
-      name: ftp-21100
-    - port: 21101
+      targetPort: 21100
+    - name: ftp-21101
+      port: 21101
       protocol: TCP
-      name: ftp-21101
-    - port: 21102
+      targetPort: 21101
+    - name: ftp-21102
+      port: 21102
       protocol: TCP
-      name: ftp-21102
-    - port: 21103
+      targetPort: 21102
+    - name: ftp-21103
+      port: 21103
       protocol: TCP
-      name: ftp-21103
-    - port: 21104
+      targetPort: 21103
+    - name: ftp-21104
+      port: 21104
       protocol: TCP
-      name: ftp-21104
-    - port: 21105
+      targetPort: 21104
+    - name: ftp-21105
+      port: 21105
       protocol: TCP
-      name: ftp-21105
-
-  type: LoadBalancer
+      targetPort: 21105
 
 ---
 
