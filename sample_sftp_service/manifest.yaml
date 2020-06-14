@@ -1,0 +1,124 @@
+# """
+# Name: manifest.yaml
+# Created by: Masato Shima
+# Created on: 2020/04/05
+# Description:
+#   manifest file
+#   SFTP 受信が可能な環境を構築する
+# """
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sftp-service
+  labels:
+    app: sftp-service
+spec:
+  selector:
+    matchLabels:
+      app: sftp-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: sftp-service
+    spec:
+      containers:
+        - name: sftp-service
+          image: masato0921/tutorial-docker-kubernetes:sftp-service
+          ports:
+            - containerPort: 22
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: sftp-service
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: nlb
+    service.beta.kubernetes.io/aws-load-balancer-access-log-enabled: "true"
+    service.beta.kubernetes.io/aws-load-balancer-access-log-emit-interval: "5"
+    service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-name: "tutorial-docker-kubernetes-logs"
+    service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-prefix: "tutorial-docker-kubernetes-logs/lb"
+    external-dns.alpha.kubernetes.io/hostname: sftp.masato-shima.com
+spec:
+  type: LoadBalancer
+  selector:
+    app: sftp-service
+  ports:
+    - name: sftp-22
+      port: 22
+      protocol: TCP
+      targetPort: 22
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: external-dns
+spec:
+  selector:
+    matchLabels:
+      app: sftp-service
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: sftp-service
+    spec:
+      serviceAccountName: external-dns
+      containers:
+        - name: external-dns
+          image: registry.opensource.zalan.do/teapot/external-dns:latest
+          args:
+            - --source=service
+            - --domain-filter=masato-shima.com
+            - --provider=aws
+            - --policy=upsert-only
+            - --aws-zone-type=public
+            - --registry=txt
+            - --txt-owner-id=masato-shima-com-identifier
+
+---
+
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: external-dns
+
+---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: external-dns
+rules:
+  - apiGroups: [""]
+    resources: ["services","endpoints","pods"]
+    verbs: ["get","watch","list"]
+  - apiGroups: ["extensions"]
+    resources: ["ingresses"]
+    verbs: ["get","watch","list"]
+  - apiGroups: [""]
+    resources: ["nodes"]
+    verbs: ["list","watch"]
+
+---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: external-dns-viewer
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: external-dns
+subjects:
+  - kind: ServiceAccount
+    name: external-dns
+    namespace: default
+
+# End
