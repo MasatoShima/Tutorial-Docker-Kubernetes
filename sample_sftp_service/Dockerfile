@@ -13,7 +13,9 @@ WORKDIR /
 
 # COPY configure file
 COPY config/users.conf /etc/sftp/users.conf
+COPY config/sshd_config /etc/ssh/sshd_config
 RUN chmod 644 /etc/sftp/users.conf
+RUN chmod 644 /etc/ssh/sshd_config
 
 # COPY public key for sftp
 COPY keys/jal-srs-sftp-guest.pem.pub /home/foo/.ssh/keys/jal-srs-sftp-guest.pem.pub
