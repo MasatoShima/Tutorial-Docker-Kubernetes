@@ -23,6 +23,14 @@ RUN chmod 600 /home/foo/.ssh/keys/jal-srs-sftp-guest.pem.pub
 RUN chmod 600 /home/bar/.ssh/keys/jal-srs-sftp-guest.pem.pub
 RUN chmod 600 /home/baz/.ssh/keys/jal-srs-sftp-guest.pem.pub
 
+# Create data directry
+RUN mkdir /home/foo/data/
+RUN mkdir /home/bar/data/
+RUN mkdir /home/baz/data/
+RUN chmod 777 /home/foo/data/
+RUN chmod 777 /home/bar/data/
+RUN chmod 777 /home/baz/data/
+
 EXPOSE 22
 
 ENTRYPOINT /entrypoint
