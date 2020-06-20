@@ -28,6 +28,11 @@ spec:
           image: masato0921/tutorial-docker-kubernetes:sftp-service
           ports:
             - containerPort: 22
+          securityContext:
+            capabilities:
+              add:
+                - SYS_ADMIN
+                - NET_ADMIN
 
 ---
 
