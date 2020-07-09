@@ -10,6 +10,7 @@ responder = "*"
 numpy = "*"
 kubernetes = "*"
 pika = "*"
+pendulum = "*"
 
 [requires]
 python_version = "3.6"
