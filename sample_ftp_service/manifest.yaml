@@ -33,6 +33,17 @@ spec:
             - containerPort: 21103
             - containerPort: 21104
             - containerPort: 21105
+          volumeMounts:
+            - name: shared-volume
+              mountPath: /home/
+        - name: transport-service
+          image: masato0921/tutorial-docker-kubernetes:transport-service
+          volumeMounts:
+            - name: shared-volume
+              mountPath: /tmp/
+      volumes:
+        - name: shared-volume
+          emptyDir: {}
 
 ---
 
