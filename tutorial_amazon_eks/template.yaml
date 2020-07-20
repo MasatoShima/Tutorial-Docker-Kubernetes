@@ -291,18 +291,20 @@ Resources:
       GroupName: Tutorial-Docker-Kubernetes-EKS-SecGroup
       GroupDescription: Cluster communication with worker nodes
       SecurityGroupIngress:
+        # FTP
         - IpProtocol: tcp
           FromPort: 20
           ToPort: 21
           CidrIp: 0.0.0.0/0
         - IpProtocol: tcp
-          FromPort: 2049
-          ToPort: 2049
-          CidrIp: 10.1.0.0/16
-        - IpProtocol: tcp
           FromPort: 21100
           ToPort: 21105
           CidrIp: 0.0.0.0/0
+        # NFS
+        - IpProtocol: tcp
+          FromPort: 2049
+          ToPort: 2049
+          CidrIp: 10.1.0.0/16
       VpcId: !Ref Vpc
 
 Outputs:
