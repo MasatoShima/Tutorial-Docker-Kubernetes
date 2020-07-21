@@ -29,8 +29,8 @@ Resources:
             Action:
               - sts:AssumeRole
       ManagedPolicyArns:
-        - arn:aws:iam::aws:policy/AmazonEKSServicePolicy
         - arn:aws:iam::aws:policy/AmazonEKSClusterPolicy
+        - arn:aws:iam::aws:policy/AmazonEKSServicePolicy
 
   RoleForEksWorker:
     Type: AWS::IAM::Role
@@ -47,8 +47,8 @@ Resources:
               - sts:AssumeRole
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly
-        - arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy
         - arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy
+        - arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy
 
   PolicyForEksWorker:
     Type: AWS::IAM::Policy
@@ -62,6 +62,7 @@ Resources:
               - "route53:ChangeResourceRecordSets"
               - "route53:ListHostedZones"
               - "route53:ListResourceRecordSets"
+              - "elasticfilesystem:*"
               - "s3:*"
             "Resource": "*"
       Roles:
