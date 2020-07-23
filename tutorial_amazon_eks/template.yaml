@@ -63,6 +63,7 @@ Resources:
               - "route53:ListHostedZones"
               - "route53:ListResourceRecordSets"
               - "elasticfilesystem:*"
+              - "ec2:*"
               - "s3:*"
             "Resource": "*"
       Roles:
