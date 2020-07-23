@@ -63,7 +63,6 @@ Resources:
               - "route53:ListHostedZones"
               - "route53:ListResourceRecordSets"
               - "elasticfilesystem:*"
-              - "ec2:*"
               - "s3:*"
             "Resource": "*"
       Roles:
@@ -86,6 +85,8 @@ Resources:
     Type: AWS::EC2::VPC
     Properties:
       CidrBlock: 10.1.0.0/16
+      EnableDnsHostnames: true
+      EnableDnsSupport: true
       Tags:
         - Key: Name
           Value: Tutorial-Docker-Kubernetes-VPC
@@ -306,7 +307,7 @@ Resources:
         - IpProtocol: tcp
           FromPort: 2049
           ToPort: 2049
-          CidrIp: 0.0.0.0/0
+          CidrIp: 10.1.0.0/16
       VpcId: !Ref Vpc
 
 Outputs:
