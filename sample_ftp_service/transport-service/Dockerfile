@@ -22,6 +22,6 @@ COPY config/incron_table /opt/
 COPY transfer.py /opt/
 
 # ENTRYPOINT
-ENTRYPOINT /usr/sbin/incrond start | incrontab /opt/incron_table |tail -f /dev/null
+ENTRYPOINT /usr/sbin/incrond start | incrontab /opt/incron_table | tail -f /dev/null
 
 # End

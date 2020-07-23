@@ -25,6 +25,6 @@ EXPOSE 20:21
 EXPOSE 21100:21105
 
 # ENTRYPOINT
-ENTRYPOINT ["/opt/run.sh"]
+ENTRYPOINT /opt/run.sh
 
 # End
