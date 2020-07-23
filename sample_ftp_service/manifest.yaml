@@ -35,7 +35,7 @@ spec:
             - containerPort: 21105
           volumeMounts:
             - name: shared-volume
-              mountPath: /home/
+              mountPath: /tmp/
         - name: transport-service
           image: masato0921/tutorial-docker-kubernetes:transport-service
           volumeMounts:
@@ -182,7 +182,7 @@ spec:
   storageClassName: efs-sc
   csi:
     driver: efs.csi.aws.com
-    volumeHandle: fs-7bfff15a
+    volumeHandle: fs-02222b23
 
 ---
 
