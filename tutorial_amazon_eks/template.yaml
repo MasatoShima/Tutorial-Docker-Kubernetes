@@ -85,8 +85,8 @@ Resources:
     Type: AWS::EC2::VPC
     Properties:
       CidrBlock: 10.1.0.0/16
-      EnableDnsHostnames: true
-      EnableDnsSupport: true
+      # EnableDnsHostnames: true
+      # EnableDnsSupport: true
       Tags:
         - Key: Name
           Value: Tutorial-Docker-Kubernetes-VPC
