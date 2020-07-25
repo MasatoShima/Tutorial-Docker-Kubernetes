@@ -1,4 +1,0 @@
-docker run -d \
--p 20:20 -p 21:21 -p 21100-21110:21100-21110 \
--v /Users/Masato/tmp/:/tmp/ \
---name ftp-service --restart=always masato0921/tutorial-docker-kubernetes:ftp-service
