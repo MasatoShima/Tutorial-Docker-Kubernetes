@@ -33,18 +33,37 @@ spec:
             - containerPort: 21103
             - containerPort: 21104
             - containerPort: 21105
-          # volumeMounts:
-            # - name: shared-volume
-              # mountPath: /tmp/
+          volumeMounts:
+            - name: shared-volume
+              mountPath: /home/
+#          volumeMounts:
+#          - name: persistent-storage
+#            mountPath: /home/
+          lifecycle:
+            postStart:
+              exec:
+                command:
+                  - sh
+                  - -c
+                  - "mkdir -p /home/ftpuser/ \
+                    && chmod 700 /home/ftpuser/ \
+                    && chown ftpuser:ftpuser /home/ftpuser/"
         - name: transport-service
           image: masato0921/tutorial-docker-kubernetes:transport-service
-          # volumeMounts:
-            # - name: shared-volume
-              # mountPath: /tmp/
-      # volumes:
-        # - name: shared-volume
-          # persistentVolumeClaim:
-            # claimName: efs-claim
+          volumeMounts:
+            - name: shared-volume
+              mountPath: /tmp/
+#          volumeMounts:
+#          - name: persistent-storage
+#            mountPath: /data/
+      volumes:
+        - name: shared-volume
+          persistentVolumeClaim:
+            claimName: efs-claim
+#      volumes:
+#      - name: persistent-storage
+#        persistentVolumeClaim:
+#          claimName: ebs-claim
 
 ---
 
@@ -182,7 +201,7 @@ spec:
   storageClassName: efs-sc
   csi:
     driver: efs.csi.aws.com
-    volumeHandle: fs-02222b23
+    volumeHandle: fs-3c7d751d
 
 ---
 
@@ -205,5 +224,30 @@ kind: StorageClass
 metadata:
   name: efs-sc
 provisioner: efs.csi.aws.com
+
+#---
+#
+#apiVersion: storage.k8s.io/v1
+#kind: StorageClass
+#metadata:
+#  name: ebs-sc
+#provisioner: ebs.csi.aws.com
+#volumeBindingMode: WaitForFirstConsumer
+#
+#---
+#
+#apiVersion: v1
+#kind: PersistentVolumeClaim
+#metadata:
+#  name: ebs-claim
+#spec:
+#  accessModes:
+#    - ReadWriteOnce
+#  storageClassName: ebs-sc
+#  resources:
+#    requests:
+#      storage: 5Gi
+#
+#---
 
 # End
