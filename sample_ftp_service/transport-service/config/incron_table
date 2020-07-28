@@ -1,1 +1,1 @@
-/tmp/ IN_ALL_EVENTS python3 /opt/transfer.py -p $@ -f $# -e $%
+/data/ IN_ALL_EVENTS python3 /opt/transfer.py -p $@ -f $# -e $%
