@@ -67,6 +67,7 @@ metadata:
     service.beta.kubernetes.io/aws-load-balancer-access-log-emit-interval: "5"
     service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-name: "tutorial-docker-kubernetes-logs"
     service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-prefix: "tutorial-docker-kubernetes-logs/lb"
+    service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
     external-dns.alpha.kubernetes.io/hostname: ftp.masato-shima.com
 spec:
   type: LoadBalancer
